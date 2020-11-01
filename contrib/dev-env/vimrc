@@ -1,0 +1,70 @@
+" https://github.com/ccchapman/dotfiles/blob/main/.config/nvim/init.vim
+" use Pathogen for install project specific plugins
+" PWD
+let g:cwd = getcwd()
+" imports
+let $installer = '~/.vimrc.d/installer.vim'
+let $generic = '~/.vimrc.d/generic.vim'
+let $whitespace = '~/.vimrc.d/whitespace.vim'
+let $navigation = '~/.vimrc.d/navigation.vim'
+let $theme = '~/.vimrc.d/theme.vim'
+let $recovery = '~/.vimrc.d/recovery.vim'
+let $nerd_commenter = '~/.vimrc.d/nerd-commenter.vim'
+let $nerd_tree = '~/.vimrc.d/nerdtree.vim'
+let $coc = '~/.vimrc.d/coc.vim'
+let $airline = '~/.vimrc.d/airline.vim'
+if !empty(glob($installer))
+  source $installer
+  echo '[~/.vimrc] => '. $installer." was sourced"
+  echo ""
+endif
+if !empty(glob($generic))
+  source $generic
+  echo '[~/.vimrc] => '. $generic." was sourced"
+  echo ""
+endif
+if !empty(glob($whitespace))
+  source $whitespace
+  echo '[~/.vimrc] => '. $whitespace." was sourced"
+  echo ""
+endif
+if !empty(glob($navigation))
+  source $navigation
+  echo '[~/.vimrc] => '. $navigation." was sourced"
+  echo ""
+endif
+if !empty(glob($theme))
+  source $theme
+  echo '[~/.vimrc] => '. $theme." was sourced"
+  echo ""
+endif
+if !empty(glob($recovery))
+  source $recovery
+  echo '[~/.vimrc] => '. $recovery." was sourced"
+  echo ""
+endif
+if !empty(glob($nerd_commenter))
+  source $nerd_commenter
+  echo '[~/.vimrc] => '. $nerd_commenter." was sourced"
+  echo ""
+endif
+if !empty(glob($nerd_tree))
+  source $nerd_tree
+  echo '[~/.vimrc] => '. $nerd_tree." was sourced"
+  echo ""
+endif
+if !empty(glob($airline))
+  source $airline
+  echo '[~/.vimrc] => '. $airline." was sourced"
+  echo ""
+endif
+if !empty(glob($multicursor))
+  source $multicursor
+  echo '[~/.vimrc] => '. $multicursor." was sourced"
+  echo ""
+endif
+if !empty(glob($coc))
+  source $coc
+  echo '[~/.vimrc] => '. $coc." was sourced"
+  echo ""
+endif

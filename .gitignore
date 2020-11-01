@@ -1,0 +1,4 @@
+.retry
+.tmp
+tmp
+inventories/pre-staging/host_vars/certificates/*

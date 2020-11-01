@@ -1,0 +1,28 @@
+{
+  "cSpell.words": [
+    "ansible",
+    "ansible hostname",
+    "cfssl",
+    "configs",
+    "dockerized",
+    "dpkg",
+    "due",
+    "force",
+    "hashicorp",
+    "hostname",
+    "item",
+    "just",
+    "limit",
+    "limit nofile",
+    "limit nproc",
+    "mainpid",
+    "nofile",
+    "nproc",
+    "reread",
+    "service",
+    "sigint",
+    "systemd",
+    "to",
+    "updating"
+  ]
+}
