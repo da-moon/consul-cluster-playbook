@@ -12,18 +12,7 @@
       dest: "{{ consul_user_home_path }}/{{ item }}"
       force: yes
       decrypt: yes
-    loop: ['server.pem','server-key.pem'] 
-  # - name: "uploading consul retry-join client certificate" 
-  #   copy: 
-  #     src: "{{ certificate_root_dir }}/consul/{{ nested_loop.0 }}/{{ nested_loop.1 }}.enc"
-  #     dest: "{{ consul_tls_path }}/{{ nested_loop.0 }}/{{ nested_loop.1 }}"
-  #     force: yes
-  #     decrypt: yes
-  #   with_nested:
-  #     - "{{ retry_join_ips }}"
-  #     - ["ca.pem" , "client.pem", "client-key.pem"]
-  #   loop_control:
-  #     loop_var: nested_loop
+    loop: ['server.pem','server-key.pem','cli.pem','cli-key.pem'] 
   become: yes
 
   

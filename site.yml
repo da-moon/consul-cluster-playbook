@@ -23,7 +23,7 @@
       raw: 'apt-get install -yqq python-apt'
       when: result.rc != 0
   become: yes
-# - name: Ansible controller local dependency installer
+# - name: shared tasks
   # hosts: all
   # gather_facts: yes
   # roles:

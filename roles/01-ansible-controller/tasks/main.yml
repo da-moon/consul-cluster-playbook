@@ -13,6 +13,7 @@
       - { name: cfssljson}
       - { name: mkbundle}
       - { name: multirootca}
+  - include_tasks: 01-consul.yml
   delegate_to: localhost
   when: ansible_facts['os_family'] == "Debian"
   become: yes

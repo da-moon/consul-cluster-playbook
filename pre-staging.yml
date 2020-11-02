@@ -8,11 +8,11 @@
       that:
         - vault_password_file is defined
   vars:
-    consul_tls_disable : true
+    consul_tls_disable : false
     override_certificate: true
     certificate_root_dir: "{{ inventory_dir+'/host_vars/certificates'}}"
   roles:
-    # - { role: 04-consul-certificates, tags: ["04-consul-certificates"] }
+    - { role: 04-consul-certificates, tags: ["04-consul-certificates"] }
     - role: 05-configure-consul-server 
       tags: 
         - "05-configure-consul-server" 

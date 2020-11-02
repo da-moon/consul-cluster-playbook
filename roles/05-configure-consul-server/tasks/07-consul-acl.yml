@@ -1,10 +1,9 @@
 - block:
   - name: "bootstraping consul acl"
-    shell: >
-      sleep 10 && consul acl bootstrap -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }}
-        -ca-path='{{ consul_user_home_path }}/ca.pem' \
-        -client-cert='{{ consul_user_home_path }}/server.pem' \
-        -client-key='{{ consul_user_home_path }}/server-key.pem' \
+    shell: |
+      sleep 10 && consul acl bootstrap -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }} -ca-path='{{ consul_user_home_path }}/ca.pem' \
+        -client-cert='{{ consul_user_home_path }}/cli.pem' \
+        -client-key='{{ consul_user_home_path }}/cli-key.pem' \
       {% endif %} -format=json
     register: "consul_init_response"
   - set_fact:
@@ -31,24 +30,21 @@
         -token='{{ consul_root_token }}' \
         -name {{ item | basename | splitext | first }} \
         -rules @{{ item }} \
-        -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }}
-        -ca-path='{{ consul_user_home_path }}/ca.pem' \
-        -client-cert='{{ consul_user_home_path }}/server.pem' \
-        -client-key='{{ consul_user_home_path }}/server-key.pem' \
+        -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }} -ca-path='{{ consul_user_home_path }}/ca.pem' \
+        -client-cert='{{ consul_user_home_path }}/cli.pem' \
+        -client-key='{{ consul_user_home_path }}/cli-key.pem' \
       {% endif %}
     loop: "{{ consul_policies }}"
   - block: 
-  
     - name: "creating token for default policy '{{ default_agent_policy }}'"
       shell : |
         consul acl token create \
         -token='{{ consul_root_token }}' \
         -description "default agent policy" \
         -policy-name {{ default_agent_policy }} \
-        -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }}
-        -ca-path='{{ consul_user_home_path }}/ca.pem' \
-        -client-cert='{{ consul_user_home_path }}/server.pem' \
-        -client-key='{{ consul_user_home_path }}/server-key.pem' \
+        -http-addr=http{% if not consul_tls_disable %}s{% endif %}://127.0.0.1:{% if consul_tls_disable %}{{ consul_api_port }}{% else %}{{ consul_https_api_port }} -ca-path='{{ consul_user_home_path }}/ca.pem' \
+        -client-cert='{{ consul_user_home_path }}/cli.pem' \
+        -client-key='{{ consul_user_home_path }}/cli-key.pem' \
         {% endif %} -format=json
       register: "default_policy_token_response"
     - set_fact:

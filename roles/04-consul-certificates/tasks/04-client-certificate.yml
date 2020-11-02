@@ -29,7 +29,8 @@
     when:
       - client_csr_enc.stat.exists
   - name: "Generating consul client certificates for '{{ inventory_hostname }}'"
-    shell: "echo '{}' | sudo cfssl gencert -ca={{ certificate_root_dir }}/consul/ca.pem -ca-key={{ certificate_root_dir }}/consul/ca-key.pem -config={{ cfssl_config_path }} -hostname='client.global.consul,{{ inventory_hostname }},{{ private_ip }},localhost,127.0.0.1' - | cfssljson -bare client"
+    # shell: "echo '{\"key\":{\"algo\":\"rsa\",\"size\":2048}}' | cfssl gencert -ca={{ certificate_root_dir }}/consul/ca.pem -ca-key={{ certificate_root_dir }}/consul/ca-key.pem -config={{ cfssl_config_path }} -hostname='client.node.global.consul,{{ inventory_hostname }},{{ private_ip }},localhost,127.0.0.1' - | cfssljson -bare client"
+    shell: "consul tls cert create -ca {{ certificate_root_dir }}/consul/ca.pem -key={{ certificate_root_dir }}/consul/ca-key.pem -client && mv dc1-client-consul-0-key.pem client-key.pem && mv dc1-client-consul-0.pem client.pem"
     args:
       chdir: "{{ certificate_root_dir }}/consul/{{ inventory_hostname }}"
   when: >

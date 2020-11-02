@@ -1,5 +1,5 @@
 ---
-
+  # https://docs.bitnami.com/aws/infrastructure/consul/administration/secure-server/
 - block:
   - import_tasks:  "00-asserts.yml"
   - import_tasks:  "01-initialize.yml"
@@ -9,4 +9,3 @@
   - import_tasks:  "05-cli-certificate.yml"
   - import_tasks:  "06-secure-certificates.yml"
   delegate_to: localhost
-  # no_log: true

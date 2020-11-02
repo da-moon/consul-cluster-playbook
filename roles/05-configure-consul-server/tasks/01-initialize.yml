@@ -21,17 +21,6 @@
         - '{{ consul_user_home_path }}'
         - '{{ consul_data_path }}'
         - '{{ systemd_unit_directory }}'
-  - name: "making sure certificate directories for retry_join nodes are present on server"
-    file:
-      path: "{{ consul_tls_path }}/{{ item }}"
-      state: directory
-      group : "root"
-      owner: "root"
-      mode: '0755'
-    with_items: "{{ retry_join_ips }}"
-    when:
-      - consul_tls_disable is defined
-      - not consul_tls_disable
   - name: "Ensure group 'consul' exists"
     group:
       name: consul
