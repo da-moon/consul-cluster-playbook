@@ -1,4 +1,4 @@
 [pre-staging]
-10.33.235.144
-10.33.235.142
-10.33.235.103
+10.33.235.83 ansible_user=damoon
+10.33.235.80 ansible_user=damoon
+10.33.235.212 ansible_user=damoon

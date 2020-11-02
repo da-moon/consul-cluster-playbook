@@ -8,8 +8,5 @@
   - import_tasks:  "04-client-certificate.yml"
   - import_tasks:  "05-cli-certificate.yml"
   - import_tasks:  "06-secure-certificates.yml"
-  - import_tasks:  "07-gossip-encryption-key.yml"
   delegate_to: localhost
-  when :
-  - not consul_tls_disable
   # no_log: true

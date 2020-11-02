@@ -7,7 +7,7 @@ PRESTAGING_TARGETS = $(CONTAINER_NAME:%=lxd-%)
 .SILENT: ansible-pre-staging-init
 ansible-pre-staging-init: 
 	- $(call print_running_target)
-	- echo '[pre-staging-servers]' | tee $(PWD)/inventories/pre-staging/hosts
+	- echo '[pre-staging]' | tee $(PWD)/inventories/pre-staging/hosts
 	- lxc list --format json | \
 		jq -r '.[] | select((.name | contains ("$(PROJECT_NAME)")) and (.status=="Running"))' | \
 		jq -r '.state.network.eth0.addresses' | \
@@ -18,13 +18,9 @@ ansible-pre-staging-init:
 .PHONY: ansible-pre-staging
 .SILENT: ansible-pre-staging
 # [ TODO ] => add dep target 'ansible-pre-staging-init'
-ansible-pre-staging:  
+ansible-pre-staging:  ansible-pre-staging-init
 	- $(call print_running_target)
-	- $(eval command=ansible-playbook -i inventories/pre-staging site.yml --limit pre-staging-servers)
-ifneq ($(STAGING_VAULT_PASSWORD_FILE),)
-	- $(eval command=$(command) --vault-password-file $(STAGING_VAULT_PASSWORD_FILE))
-endif
-	- $(eval command=$(command) && ansible-playbook -i inventories/pre-staging site.yml --limit pre-staging-clients)
+	- $(eval command=ansible-playbook -i inventories/pre-staging site.yml --limit pre-staging)
 ifneq ($(STAGING_VAULT_PASSWORD_FILE),)
 	- $(eval command=$(command) --vault-password-file $(STAGING_VAULT_PASSWORD_FILE))
 endif

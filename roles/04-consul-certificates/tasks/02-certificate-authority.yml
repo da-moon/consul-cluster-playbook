@@ -31,7 +31,7 @@
     - name: "Generating consul CA's private key and certificate"
       shell: "cfssl print-defaults csr | cfssl gencert -initca - | cfssljson -bare ca"
       args:
-        chdir: "{{ certificate_root_dir }}/consul"
+        chdir: "{{ certificate_root_dir }}/consul/"
     when : >
       ca_pem_enc.stat.exists == False or
       ca_key_pem_enc.stat.exists == False or

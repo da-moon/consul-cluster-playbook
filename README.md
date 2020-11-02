@@ -68,8 +68,22 @@ make -j`nproc` lxd-clean
 ansible localhost -m debug -a var="gossip_encryption_key" -e "@inventories/pre-staging/group_vars/gossip_encryption_key.yml" --vault-password-file ~/.vault_pass.txt
 ```
 
+- decrypt consul root token encryption key (e.g for prestaging)
+
+```bash
+ansible localhost -m debug -a var="consul_root_token" -e "@inventories/pre-staging/group_vars/consul_root_token.yml" --vault-password-file ~/.vault_pass.txt
+```
+
+- decrypt default polict token encryption key (e.g for prestaging)
+
+```bash
+ansible localhost -m debug -a var="default_policy_token" -e "@inventories/pre-staging/group_vars/default_policy_token.yml" --vault-password-file ~/.vault_pass.txt
+```
+
+default_policy_token
+
 - in case your host machine is a remote server ( lxd is running on remote), use the following snippet on host to redirect all connections to port `8500` to a consul server's container
 
 ```bash
-iptables -t nat -A PREROUTING -i $(ip link | awk -F: '$0 !~ "lo|vir|wl|lxd|docker|^[^0-9]"{print $2;getline}') -p tcp --dport 8500 -j DNAT --to "$(lxc list --format json | jq -r '.[] | select((.name | contains ("server")) and (.status=="Running")).state.network.eth0.addresses|.[] | select(.family=="inet").address' | head -n 1):8500"
+iptables -t nat -A PREROUTING -i $(ip link | awk -F: '$0 !~ "lo|vir|wl|lxd|docker|^[^0-9]"{print $2;getline}') -p tcp --dport 8500 -j DNAT --to "$(lxc list --format json | jq -r '.[] | select((.name | contains ("consul")) and (.status=="Running")).state.network.eth0.addresses|.[] | select(.family=="inet").address' | head -n 1):8500"
 ```

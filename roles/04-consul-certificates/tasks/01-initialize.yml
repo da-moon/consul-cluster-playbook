@@ -8,11 +8,11 @@
       - override_certificate is defined
       - override_certificate
   - stat:
-      path: "{{ certificate_root_dir }}/consul/"
+      path: "{{ certificate_root_dir }}/consul/{{ inventory_hostname }}"
     register: "template_root_dir"
   - name: "Creating directory to store certificates"
     file:
-      path: "{{ certificate_root_dir }}/consul/"
+      path: "{{ certificate_root_dir }}/consul/{{ inventory_hostname }}"
       state: directory
       owner: "{{ ansible_user }}"
       mode: '0755'
@@ -25,7 +25,7 @@
       use_regex: yes
       recurse: yes
       paths: 
-        - "{{ certificate_root_dir }}/consul/"
+        - "{{ certificate_root_dir }}/consul/{{ inventory_hostname }}"
       patterns: 
         - '^.*\.pem$'
         - '^.*\.csr$'
@@ -35,4 +35,3 @@
       path: "{{ item }}"
       state: absent
     loop: "{{ filelist.files | map(attribute='path')  | list }}"
-  run_once: true

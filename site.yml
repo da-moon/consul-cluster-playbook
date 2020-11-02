@@ -23,11 +23,11 @@
       raw: 'apt-get install -yqq python-apt'
       when: result.rc != 0
   become: yes
-- name: Ansible controller local dependency installer
-  hosts: all
-  gather_facts: yes
-  roles:
-    - { role: 01-ansible-controller, tags: ["01-ansible-controller"]}  
-    - { role: 02-install-prerequisites, tags: ["02-install-prerequisites"]}  
-    - { role: 03-install-consul, tags: ["03-install-consul"]}       
+# - name: Ansible controller local dependency installer
+  # hosts: all
+  # gather_facts: yes
+  # roles:
+    # - { role: 01-ansible-controller, tags: ["01-ansible-controller"]}  
+    # - { role: 02-install-prerequisites, tags: ["02-install-prerequisites"]}  
+    # - { role: 03-install-consul, tags: ["03-install-consul"]}       
 - import_playbook: pre-staging.yml

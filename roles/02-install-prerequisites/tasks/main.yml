@@ -16,5 +16,5 @@
       - { name: gnupg2}
       - { name: software-properties-common}
       - { name: ufw}
-  - import_tasks: "02-docker.yml"
+  - import_tasks: "02-envoy.yml"
   become: yes

@@ -1,0 +1,22 @@
+
+- name: Hashicorp Cluster consul server setup playbooks
+  hosts: pre-staging
+  gather_facts: yes
+  pre_tasks:
+  - name: "Asserting variables globally used variables"
+    assert:
+      that:
+        - vault_password_file is defined
+  vars:
+    consul_tls_disable : true
+    override_certificate: true
+    certificate_root_dir: "{{ inventory_dir+'/host_vars/certificates'}}"
+  roles:
+    # - { role: 04-consul-certificates, tags: ["04-consul-certificates"] }
+    - role: 05-configure-consul-server 
+      tags: 
+        - "05-configure-consul-server" 
+      vars:
+        log_level : "{{ lookup('env','CONSUL_LOG_LEVEL') | default('DEBUG', true) }}"
+        consul_ui : "{{ lookup('env','CONSUL_UI') | default(true, true) }}"
+        default_agent_policy : "{{ lookup('env','DEFAULT_AGENT_POLICY') | default('node-policy', true) }}"
